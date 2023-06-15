@@ -15,15 +15,18 @@ const months = [
 
 //html elements
 const endtime = document.querySelector('.endtime');
-const items = document.querySelectorAll('.deadline h4')
+const items = document.querySelectorAll('.deadline h4');
 
 
 //date and time
+let diffMilli = 0
+let endDate = new Date(2023, 5, 16, 17, 50, 35);
 
-let endDate = new Date(2023, 5, 20, 20, 30, 55);
+
+let countdown = setInterval(getRemainingTime, 100);
 
 
-// let timerId = setTimeout();
+
 
 function getRemainingTime() {
     const dateNow = new Date();
@@ -32,9 +35,14 @@ function getRemainingTime() {
     const oneMinute = 60 * 1000;
 
 
-    //Calculate all values
-    const diffMilli = Math.abs(endDate.getTime() - dateNow.getTime());
+    diffMilli = endDate.getTime() - dateNow.getTime();
 
+    if (diffMilli < 0) {
+        clearInterval(countdown)
+        return
+    }
+
+    //Calculate all values
     const days = Math.floor(diffMilli / oneDay);
     const hours = Math.floor((diffMilli % oneDay) / oneHour);
     const minutes = Math.floor((diffMilli % oneHour) / oneMinute);
@@ -43,33 +51,34 @@ function getRemainingTime() {
 
     const values = [days, hours, minutes, seconds, millis]
 
-    function format(item) {
-        if (item < 10) {
-            return `0${item}`;
-        }
-        return item;
-    }
-
     items.forEach(function (item, index) {
         item.textContent = format(values[index]);
     });
 
+    renderEndDate();
+}
+
+function format(item) {
+    if (item < 10) {
+        return `0${item}`;
+    }
+    return item;
+}
+
+function onDateChange(event) {
+    console.log(event);
+    endDate = event.target.valueAsDate;
+}
 
 
+function renderEndDate() {
     const year = endDate.getFullYear();
     let month = endDate.getMonth();
     let day = endDate.getDay();
     let hour = endDate.getHours();
     let minute = endDate.getMinutes();
     let second = endDate.getSeconds();
-    month = months[month]
+    month = months[month];
     endtime.textContent = `Giveaway ends on ${day} ${month} ${year} ${hour}:${minute}:${second}`;
 }
-
-let countdown = setInterval(getRemainingTime, 100);
-getRemainingTime();
-
-
-
-
 
