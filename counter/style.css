@@ -1,0 +1,42 @@
+
+h2 {
+    font-size: 54px;
+    text-align: center;
+    color: #79b8e7;
+    width: 100%;
+}
+
+#counter {
+    margin: auto;
+    text-align: center;
+    margin-top: 60px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 85px;
+    height: 200px;
+    width: 200px;
+}
+
+.buttons {
+    display: flex;
+    margin: 0 auto;
+    width: 40%;
+}
+
+.button {
+    cursor: pointer;
+    margin: 0 30px;
+    font-size: 20px;
+    font-style: bold;
+    color: black;
+    background-color: #fff;
+    width: 30%;
+    height: 40px;
+    border-radius: 10px;
+    border: 2px solid black;
+}
+
+.button:hover {
+    color: #fff;
+    background-color: black;
+    border: 2px solid black;
+}

@@ -1,0 +1,19 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+h2 {
+    font-size: 34px;
+    text-align: center;
+    color: #79b8e7;
+    width: 100%;
+}
+
+#item {
+    background-color: aquamarine;
+    margin-top: 60px;
+    height: 400px;
+    width: 400px;
+}
