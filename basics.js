@@ -35,6 +35,9 @@
 // console.log(value3);
 // console.log(+a + +b);
 
+//obvious interactions with web client
+
+
 // let promtValue = prompt('How would like to be fucked?')
 
 // alert('You are fucked ' + promtValue + '!!!')
@@ -46,4 +49,43 @@
 //     alert('Fuck that all, fuck this shit, don\'t give a shit!')
 // }
 
-console.log(0 && 4);
+//console.log((6) >> 1);
+
+
+//Functions 
+
+let a;
+
+
+if (1) {
+    a = function askQuestion(question, yes, no) {
+        if (confirm(question)) {
+            yes();
+        } else {
+            no();
+        }
+    };
+}
+// console.log(a);
+
+
+
+function showOk() {
+    alert("I agree");
+}
+
+function showCancel() {
+    alert("I disagree");
+}
+
+//a("Do you agree to get fucked really hard?", showOk, showCancel);
+
+
+// Arrow functions
+
+let value1 = 5;
+let value2 = 2;
+let sum = (a, b) => a * b;
+//alert(sum(value1, value2));
+
+
