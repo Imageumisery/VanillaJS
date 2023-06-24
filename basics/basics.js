@@ -35,5 +35,15 @@
 // console.log(value3);
 // console.log(+a + +b);
 
+let str = "Ослик Иа-Иа посмотрел на виадук";
+let target = "Иа";
 
+let rep = str.repeat(12);
 
+let pos = -1;
+while ((pos = str.indexOf(target, pos + 1)) != -1) {
+    console.log(pos);
+}
+
+console.log(rep);
+console.log(str.slice(2));

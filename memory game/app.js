@@ -44,65 +44,96 @@ const cards__template = [
 
 const cards = cards__template.concat(cards__template);
 let flippedCards = [];
+let counter = 0;
 const grid = document.querySelector('.grid');
 const randomize_btn = document.createElement('button');
 const defaultIconClass = 'icon';
-
-
-
-function createBoard() {
-    for (let i = 0; i < cards.length; i++) {
-        const card = document.createElement('div');
-        const icon = document.createElement('i');
-        card.classList.add('card');
-        card.addEventListener('click', flipCard);
-        icon.classList.add(defaultIconClass);
-        card.appendChild(icon);
-        grid.appendChild(card);
-
-    }
-    randomize();
-}
-
-function randomize() {
-    const icons = Array.from(document.querySelectorAll(`.${defaultIconClass}`).values());
-    console.log(icons);
-    cards.sort(() => 0.5 - Math.random());
-    cards.forEach((card, index) => {
-        icons[index].parentElement.setAttribute('data-id', card.id);
-        icons[index].setAttribute('class', `${defaultIconClass} ${card.card}`);
-        icons[index].parentElement.setAttribute('data-index', index);
-    })
-}
-
-function createButton() {
-    document.body.appendChild(randomize_btn);
-    randomize_btn.textContent = 'Randomize';
-    randomize_btn.addEventListener('click', randomize);
-}
-
-function flipCard() {
-
-}
+const footer = document.querySelector('.footer');
 
 createBoard();
 
 createButton();
 
 
-
-
-/* function flipCard() {
- const flipIndex = 0;
-    if (prevFlippedCard === null) {
-        prevFlippedCard = this;
+function createBoard() {
+    randomize();
+    for (let i = 0; i < cards.length; i++) {
+        const card = document.createElement('div');
+        card.classList.add('card');
+        card.setAttribute('data-index', i);
+        card.addEventListener('click', handleCardClick);
+        grid.appendChild(card);
     }
-     else {
-        console.log(prevFlippedCard);
-        if (prevFlippedCard === flipIndex) {
-            this.dataset.id
-        }
-    }
-    this.classList.add('flipped');
 }
-    */
+
+function randomize() {
+    cards.sort(() => 0.5 - Math.random());
+}
+
+function reset() {
+    window.location.reload();
+}
+
+function createButton() {
+    footer.appendChild(randomize_btn);
+    randomize_btn.textContent = 'Reset';
+    randomize_btn.addEventListener('click', reset);
+}
+
+//Card content reveals only on flip
+function handleCardClick() {
+    if (flippedCards.length < 2) {
+        const [firstFlipped] = flippedCards;
+        if (firstFlipped?.dataset.index === this.dataset.index) {
+            return;
+        }
+        flipCard.call(this);
+    }
+    if (flippedCards.length === 2) {
+        setTimeout(checkCardMatch, 400);
+    }
+}
+
+function flipCard() {
+    const icon = document.createElement('i');
+    icon.setAttribute('class', `${defaultIconClass} ${cards[this.dataset.index].card}`);
+    this.appendChild(icon);
+    this.classList.add('flipped');
+    flippedCards.push(this);
+}
+
+function checkCardMatch() {
+    const [firstFlipped, secondFlipped] = flippedCards;
+    if (cards[firstFlipped?.dataset.index]?.id === cards[secondFlipped?.dataset.index]?.id) {
+        flushMatched();
+    } else {
+        flushUnmatched();
+    }
+    flippedCards = [];
+    checkWin();
+}
+
+
+function flushMatched() {
+    flippedCards.forEach((card) => {
+        console.log(card);
+        card.classList.add('solved');
+        card.removeEventListener('click', handleCardClick);
+    });
+    //count matched to fix the win
+    counter++;
+}
+
+function flushUnmatched() {
+    const icons = document.querySelectorAll(`.${defaultIconClass}`);
+    flippedCards.forEach((card) => card.classList.remove("flipped"));
+    icons.forEach((icon) => icon.remove());
+}
+
+function checkWin() {
+    const solvedCardsLength = counter * 2;
+    if (solvedCardsLength === cards.length) {
+        reset();
+        alert('You win the game!');
+    }
+}
