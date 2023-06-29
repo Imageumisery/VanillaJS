@@ -42,28 +42,38 @@ const cards__template = [
 ].map((card, index) => ({ ...card, id: index }));
 
 
-const cards = cards__template.concat(cards__template);
 let flippedCards = [];
-let counter = 0;
+const cards = cards__template.concat(cards__template);
+const cardShowTimeout = 400;
+const cardsRevealedAtTime = 2;
+const cardsOnBoard = document.getElementsByClassName('card');
 const grid = document.querySelector('.grid');
 const randomize_btn = document.createElement('button');
+const flipped = 'flipped';
+const solved = 'solved';
+const defaulClass = 'class';
 const defaultIconClass = 'icon';
+const defaultCardClass = 'card';
+const resetText = 'Reset';
+const clickEvent = 'click';
+const defaultDivClass = 'div';
+const indexAttribute = 'data-index';
+const winningText = 'You won the game!';
 const footer = document.querySelector('.footer');
 
 createBoard();
-
 createButton();
 
 
 function createBoard() {
     randomize();
-    for (let i = 0; i < cards.length; i++) {
-        const card = document.createElement('div');
-        card.classList.add('card');
-        card.setAttribute('data-index', i);
-        card.addEventListener('click', handleCardClick);
+    cards.forEach((_, index) => {
+        const card = document.createElement(defaultDivClass);
+        card.classList.add(defaultCardClass);
+        card.setAttribute(indexAttribute, index);
+        card.addEventListener(clickEvent, handleCardClick);
         grid.appendChild(card);
-    }
+    });
 }
 
 function randomize() {
@@ -71,34 +81,43 @@ function randomize() {
 }
 
 function reset() {
-    window.location.reload();
+    randomize();
+    flushAllCards();
+}
+
+function flushAllCards() {
+    const icons = document.querySelectorAll(`.${defaultIconClass}`);
+    icons.forEach((icon) => icon.remove());
+    Array.from(cardsOnBoard).forEach((card) => {
+        card.classList.remove(flipped, solved);
+        card.addEventListener(clickEvent, handleCardClick);
+        // card.setAttribute(defaulClass, defaultCardClass);
+    });
 }
 
 function createButton() {
     footer.appendChild(randomize_btn);
-    randomize_btn.textContent = 'Reset';
-    randomize_btn.addEventListener('click', reset);
+    randomize_btn.textContent = resetText;
+    randomize_btn.addEventListener(clickEvent, reset);
 }
 
 //Card content reveals only on flip
 function handleCardClick() {
-    if (flippedCards.length < 2) {
+    if (flippedCards.length < cardsRevealedAtTime) {
         const [firstFlipped] = flippedCards;
-        if (firstFlipped?.dataset.index === this.dataset.index) {
-            return;
-        }
+        if (firstFlipped?.dataset.index === this.dataset.index) return;
         flipCard.call(this);
     }
-    if (flippedCards.length === 2) {
-        setTimeout(checkCardMatch, 400);
+    if (flippedCards.length === cardsRevealedAtTime) {
+        setTimeout(checkCardMatch, cardShowTimeout);
     }
 }
 
 function flipCard() {
     const icon = document.createElement('i');
-    icon.setAttribute('class', `${defaultIconClass} ${cards[this.dataset.index].card}`);
+    icon.setAttribute(defaulClass, `${defaultIconClass} ${cards[this.dataset.index].card}`);
     this.appendChild(icon);
-    this.classList.add('flipped');
+    this.classList.add(flipped);
     flippedCards.push(this);
 }
 
@@ -113,27 +132,23 @@ function checkCardMatch() {
     checkWin();
 }
 
-
 function flushMatched() {
     flippedCards.forEach((card) => {
-        console.log(card);
-        card.classList.add('solved');
-        card.removeEventListener('click', handleCardClick);
+        card.classList.add(solved);
+        card.removeEventListener(clickEvent, handleCardClick);
     });
-    //count matched to fix the win
-    counter++;
 }
 
 function flushUnmatched() {
     const icons = document.querySelectorAll(`.${defaultIconClass}`);
-    flippedCards.forEach((card) => card.classList.remove("flipped"));
+    flippedCards.forEach((card) => card.classList.remove(flipped));
     icons.forEach((icon) => icon.remove());
 }
 
 function checkWin() {
-    const solvedCardsLength = counter * 2;
+    const solvedCardsLength = document.getElementsByClassName(solved).length;
     if (solvedCardsLength === cards.length) {
         reset();
-        alert('You win the game!');
+        alert(winningText);
     }
 }
