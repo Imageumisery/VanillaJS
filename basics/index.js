@@ -249,17 +249,17 @@ const users = [
 // console.log(givenNames);
 // console.log(addresses);
 
-// const result = users.reduce(
-//     (acc, curr) => {
-//         if(curr.username.length < 8) {
-//             acc.cities.push(curr.address.city);
-//         } else {
-//             acc.addresses.push(curr.address.zipcode)
-//         }
-//         return acc;
-//     },
-//     { cities: [], addresses: [] }
-// )
+const result = users.reduce(
+    (acc, curr) => {
+        if(curr.username.length < 8) {
+            acc.cities.push(curr.address.city);
+        } else {
+            acc.addresses.push(curr.address.zipcode)
+        }
+        return acc;
+    },
+    { cities: [], addresses: [] }
+)
 
 
 
@@ -273,7 +273,7 @@ const users = [
 
 // console.log(usersMap);
 // console.log(users.push('23423'));
-// console.log(users);
+console.log(users);
 
 // let fruits = [3, 5, 67, 8, 90, 2, 0]
 
