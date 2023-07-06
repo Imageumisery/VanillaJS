@@ -19,8 +19,7 @@ body {
     height: 100%;
 }
 
-
-.section-center, 
+.section-center,
 #grocery,
 .submit-btn,
 .clear-btn,
@@ -37,13 +36,13 @@ i,
 *:before,
 *::after,
 .clear,
+.alert,
 h3 {
     background: white;
 }
 
-
 .section-center {
-    transition: ease-in .1s;
+    transition: ease-in 0.1s;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     width: 35%;
     border: 4px solid white;
@@ -56,7 +55,6 @@ h3 {
 .section-center:hover {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.34);
 }
-
 
 h3 {
     text-align: center;
@@ -79,6 +77,10 @@ h3 {
     font-size: 28px;
 }
 
+.grocery-container {
+    margin-top: 40px;
+}
+
 #grocery {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
@@ -86,9 +88,20 @@ h3 {
     width: 100%;
 }
 
+#grocery:focus {
+    box-shadow: 0 5px 15px rgba(21, 111, 185, 0.39);
+    outline: none;
+}
+
+.alert {
+    display: none;
+    text-align: center;
+    font-size: 19px;
+    color: crimson;
+    width: 100%;
+}
 
 .submit-btn {
-    /* height: 80%; */
     border: 0;
     border-top-right-radius: 9px;
     border-bottom-right-radius: 9px;
@@ -101,10 +114,10 @@ h3 {
 .clear {
     display: flex;
     justify-content: center;
-
 }
 
 .clear-btn {
+    display: none;
     color: rgb(214, 52, 52);
     margin-top: 55px;
     width: 180px;
@@ -133,11 +146,9 @@ h3 {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-
 .title {
     overflow: hidden;
 }
-
 
 .edit-btn {
     color: greenyellow;
@@ -159,6 +170,15 @@ h3 {
 .edit-btn,
 .submit-btn,
 .clear-btn {
-   cursor: pointer;
+    cursor: pointer;
 }
 
+.show {
+    display: block;
+    transition: ease-in-out 0.2s;
+}
+
+.show-alert {
+    display: block;
+    transition: ease-in-out 0.2s;
+}
