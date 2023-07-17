@@ -1,0 +1,23 @@
+*,
+*:before,
+*::after {
+    box-sizing: border-box;
+    margin: 0 0;
+    padding: 0 0;
+}
+
+.container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.title {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.result {
+    background-color: purple;
+    color: red;
+}

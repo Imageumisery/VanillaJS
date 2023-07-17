@@ -1,0 +1,59 @@
+*,
+*:before,
+*::after {
+    box-sizing: border-box;
+    margin: 0 0;
+    padding: 0 0;
+}
+
+.container {
+    margin-top: 60px;
+    display: flex;
+    justify-content: center;
+}
+
+.title {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.show{
+    text-align: center;
+    padding: 30px;
+    height: 110px;
+    font-size: 40px;
+    text-transform: uppercase;
+    background-color: purple;
+    color: red;
+}
+
+.grid {
+    outline: 2px solid rgba(85, 84, 84, 0.904);
+    box-shadow: 0 5px 15px rgba(21, 111, 185, 0.39);
+    width: 300px;
+    height: 400px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.grid div {
+    width: 20px;
+    height: 20px;
+}
+
+.invader {
+    background-color: purple;
+    border-radius: 10px;
+}
+
+.shooter {
+    background-color: greenyellow;
+}
+
+.bullet {
+    background-color: orange;
+}
+
+.boom {
+    background-color: red;
+}

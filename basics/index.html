@@ -1,18 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JS basics</title>
-</head>
-<body>
-    <div class="container">
-        <div class="something">
-
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>JS basics</title>
+        <style>
+            .message-ball {
+                font-size: 20px;
+                line-height: 200px;
+                text-align: center;
+            }
+            .circle {
+                transition-property: width, height;
+                transition-duration: 2s;
+                position: fixed;
+                transform: translateX(-50%) translateY(-50%);
+                background-color: red;
+                border-radius: 50%;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <button onclick="promiseWirthFetch()">showCircle(150, 150, 100)</button>
         </div>
-    </div>
-    <!-- <script src="basics.js"></script> -->
-    <script src="calculator.js"></script>
-    <!-- <script src="tasks.js"></script> -->
-</body>
+        <!-- <script src="basics.js"></script> -->
+        <script src="promises.js"></script>
+        <!-- <script src="tasks.js"></script> -->
+    </body>
 </html>
